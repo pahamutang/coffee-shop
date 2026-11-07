@@ -69,7 +69,7 @@ export default function App() {
   };
 
   return (
-    <div className={'app ' + (sheet ? 'sheet-mode' : 'split') + (compact ? ' compact' : '')}>
+    <div className={'app ' + (sheet ? 'sheet-mode' : 'split') + (compact ? ' compact' : '') + (sheet && cart.length > 0 ? ' cartbar-on' : '')}>
       <header className="top">
         <h1>
           {settings.logo ? <img className="logo" src={settings.logo} alt="" /> : <span>☕</span>}

@@ -172,7 +172,6 @@ input, select { font-size: 16px; }              /* stops iOS zooming into fields
 
 /* Phone / narrow screens: order opens as a bottom sheet */
 .sheet-mode .body { grid-template-columns: 1fr; }
-.sheet-mode .menu { padding-bottom: calc(88px + env(safe-area-inset-bottom)); }
 .sheet-mode .grid { grid-template-columns: repeat(auto-fill, minmax(min(140px, 100%), 1fr)); gap: 10px; }
 .sheet-mode .card { min-height: 110px; }
 .sheet-mode .sheet-close { display: inline-flex; }
@@ -288,7 +287,6 @@ input, select { font-size: 16px; }              /* stops iOS zooming into fields
    (cutting off the name and price) whenever the menu has more items than fit on screen. */
 .grid { grid-auto-rows: max-content; }
 .card { flex-shrink: 0; }
-.sheet-mode.compact .menu { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
 
 /* Order rows: the one-line layout must declare the same named areas the parts are assigned to
    (without this, name / quantity / price / remove all land on top of each other). */
@@ -305,3 +303,23 @@ input, select { font-size: 16px; }              /* stops iOS zooming into fields
 .change-banner strong { overflow-wrap: anywhere; font-size: clamp(24px, 9vw, 38px); }
 .compact .change-banner strong { font-size: clamp(20px, 5vw, 26px); }
 @media (max-width: 440px) { .cartbar-label { display: none; } .cartbar-info strong { margin-left: 0; } }
+
+/* ================= Phone fixes ================= */
+/* Menu bottom: the scroll area now runs all the way down (no dead band under the last row). Space for the floating
+   cart bar is reserved INSIDE the scroller and only while the bar is actually showing. The old rule reserved 88px + the
+   system-bar inset even with an empty cart, and .app already pads for the inset, so it was counted twice. */
+.sheet-mode .menu, .sheet-mode.compact .menu { padding-bottom: 0; }
+.sheet-mode .grid { padding-bottom: 14px; }
+.sheet-mode.cartbar-on .grid { padding-bottom: 86px; }
+
+/* Category tabs scroll edge-to-edge instead of being chopped at the menu padding */
+.menu > .tabs { max-width: none; margin: 0 -14px; padding: 0 14px 2px; scrollbar-width: none; }
+.menu > .tabs::-webkit-scrollbar { display: none; }
+.compact .menu > .tabs { margin: 0 -8px; padding: 0 8px 2px; }
+
+/* Popups stay inside the system bars (status bar / nav bar / notch) */
+.overlay { padding: calc(12px + env(safe-area-inset-top)) calc(12px + env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) calc(12px + env(safe-area-inset-left)); }
+.modal, .modal.wide { max-height: 100%; }
+@media (max-width: 560px) {
+  .overlay { padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left); }
+}
