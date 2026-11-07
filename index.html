@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Quick Coffee POS</title>
+  <script>
+    // Apply the saved theme before first paint so light-theme users don't see a dark flash.
+    try { var d = JSON.parse(localStorage.getItem('quick_coffee_pos_v1') || '{}'); if (d.settings && d.settings.theme === 'light') document.documentElement.setAttribute('data-theme', 'light'); } catch (e) {}
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
